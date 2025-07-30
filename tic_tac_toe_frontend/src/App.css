@@ -1,67 +1,192 @@
-/* CSS Variables for Theme Management */
+/* CSS Variables for Theme Management/Brand */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
+  --kavia-primary: #1976d2;
+  --kavia-secondary: #424242;
+  --kavia-accent: #ffb300;
+  --bg-primary: #fff;
   --bg-secondary: #f8f9fa;
   --text-primary: #282c34;
-  --text-secondary: #61dafb;
+  --text-secondary: #757575;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --button-bg: var(--kavia-primary);
+  --button-accent: var(--kavia-accent);
+  --button-text: #fff;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
   --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
+  --bg-secondary: #212121;
+  --text-primary: #fafafa;
+  --text-secondary: #bdbdbd;
   --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --button-bg: var(--kavia-secondary);
+  --button-accent: var(--kavia-accent);
+  --button-text: #fff;
+}
+
+html, body, #root, .App {
+  height: 100%;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-width: 100vw;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  transition: background 0.2s, color 0.2s;
 }
 
 .App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+  background: var(--bg-secondary);
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
   position: relative;
+  padding: 0 10px;
 }
 
-.App-link {
+.ttt-title {
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+  font-weight: 800;
+  color: var(--kavia-primary);
+  letter-spacing: 1.2px;
+  margin-top: 32px;
+}
+
+.ttt-controls {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0 10px 0;
+}
+
+.ttt-mode-btn,
+.ttt-reset-btn {
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  margin: 0 3px;
+  outline: none;
+  transition: background 0.1s, color 0.1s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.ttt-mode-btn.active,
+.ttt-mode-btn:focus {
+  background: var(--button-accent);
+  color: var(--kavia-secondary);
+}
+
+.ttt-reset-btn {
+  background: transparent;
+  color: var(--button-bg);
+  border: 2px solid var(--button-bg);
+  transition: background 0.2s, color 0.2s;
+}
+
+.ttt-reset-btn:hover {
+  background: var(--button-bg);
+  color: #fff;
+}
+
+.ttt-status {
+  margin: 18px 0 12px 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  min-height: 24px;
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 62px);
+  grid-template-rows: repeat(3, 62px);
+  gap: 6px;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px auto;
+  border-radius: 13px;
+}
+
+.ttt-square {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  font-size: 2rem;
+  color: var(--kavia-primary);
+  height: 62px;
+  width: 62px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border 0.12s, box-shadow 0.18s, background 0.1s;
+  outline: none;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 6px rgba(50, 50, 50, 0.03);
+}
+.ttt-square:hover,
+.ttt-square:focus {
+  border-color: var(--kavia-accent);
+  background: var(--bg-secondary);
+}
+.ttt-square.highlight {
+  background: var(--kavia-accent);
+  color: #fff;
+  border-color: var(--kavia-accent);
+  animation: pulseWin 0.8s infinite alternate;
+}
+@keyframes pulseWin {
+  0% { box-shadow: 0 0 8px 0 var(--kavia-accent);}
+  100% { box-shadow: 0 0 18px 6px var(--kavia-accent);}
+}
+
+.ttt-scores {
+  display: flex;
+  flex-direction: row;
+  gap: 27px;
+  margin-bottom: 24px;
+  margin-top: 6px;
+  font-size: 1.08rem;
   color: var(--text-secondary);
-  transition: color 0.3s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+.ttt-scores > div {
+  background: var(--bg-primary);
+  border-radius: 7px;
+  padding: 3px 18px 3px 15px;
+  border: 1.5px solid var(--border-color);
+  box-shadow: 0 2px 8px 0 rgba(50,50,50,0.03);
+  min-width: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 7px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ttt-score-value {
+  margin-left: 8px;
+  color: var(--kavia-accent);
+  font-weight: 700;
 }
 
 .theme-toggle {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
   background-color: var(--button-bg);
   color: var(--button-text);
   border: none;
@@ -70,35 +195,42 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  z-index: 11;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.10);
+}
+.theme-toggle:hover { opacity: 0.95; }
+
+.ttt-footer {
+  margin-top: 35px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
-}
-
-.theme-toggle:active {
-  transform: translateY(0);
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive for mobile: shrink grid */
+@media (max-width: 520px) {
+  .ttt-board {
+    grid-template-columns: repeat(3, 44px);
+    grid-template-rows: repeat(3, 44px);
+    gap: 4px;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-square {
+    font-size: 1.45rem;
+    width: 44px;
+    height: 44px;
   }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
+  .ttt-title {
+    font-size: 1.7rem;
+  }
   .theme-toggle {
     top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+    right: 8px;
+    padding: 7px 13px;
+    font-size: 11px;
   }
+  .ttt-controls { gap: 6px; }
+  .ttt-scores > div { padding: 3px 8px 3px 6px; min-width: 36px;}
 }
